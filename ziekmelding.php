@@ -13,6 +13,7 @@
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="leerlingoverzicht.php">Leerlingoverzicht</a><br>
     <a href="ziekenoverzicht.php">Ziekenoverzicht</a><br>
     <a href="ziekmelding.php">Ziekmelden</a><br>
     <a href="betermelding.php">Betermelden</a><br>
@@ -23,9 +24,20 @@
     <P><b>Klas:<br/></b><INPUT TYPE="text" name="klas"/></P>
     <p><b>Mentor:<br/></b><INPUT TYPE="text" name="mentor"/></P>
     <p><b>Datum ziek gemeld:<br/></b><INPUT TYPE="date" name="ziek"/></p>
+        <p><b>Dag ziekgemeld:</b></p>
+        <input type="checkbox" id="maandag" name="dag" value="maandag">
+        <label for="maandag"> Maandag</label><br>
+        <input type="checkbox" id="dinsdag" name="dag" value="dinsdag">
+        <label for="dinsdag"> Dinsdag</label><br>
+        <input type="checkbox" id="woensdag" name="dag" value="woensdag">
+        <label for="woensdag"> Woensdag</label><br>
+        <input type="checkbox" id="donderdag" name="dag" value="donderdag">
+        <label for="donderdag"> Donderdag</label><br>
+        <input type="checkbox" id="vrijdag" name="dag" value="vrijdag">
+        <label for="vrijdag"> Vrijdag</label><br><br>
     <button class="w3-button w3-circle w3-teal" type="submit" name="btnAdd">Meld je hier ziek</button>
 </FORM>
-<!--hier laat ik een butten zien, als er iemand op klikt wordt hij verwezen naar de cv pagina-->
+<!--hier laat ik een butten zien, als er iemand op klikt wordt hij verwezen naar de overzicht pagina-->
 <button onclick="myFunction()">Ga naar de ziekenlijst</button>
 
 <script>
@@ -48,9 +60,11 @@
 
             $lijst[3] = $_POST["ziek"];
 
+            $lijst[4] = $_POST["dag"];
+
 
         $query = "INSERT INTO ziekeleerlingen VALUES ".
-            "('$lijst[0]','$lijst[1]','$lijst[2]','$lijst[3]')";
+            "('$lijst[0]','$lijst[1]','$lijst[2]','$lijst[3]','$lijst[4]')";
         $stm = $con->prepare($query);
         if($stm->execute())
         {

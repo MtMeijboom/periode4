@@ -18,9 +18,11 @@
     <a href="ziekmelding.php">Ziekmelden</a><br>
     <a href="betermelding.php">Betermelden</a><br>
 </div><br>
+
+<!-- Hier maak ik de connectie met mijn database, en wijzig of voeg ik de data in de database als er op een knop is gedrukt-->
 <?php
 include 'config.php';
-$query = "SELECT * FROM ziekeleerlingen WHERE dag= 'maandag'";
+$query = "SELECT * FROM leerlingoverzicht";
 $stm = $con->prepare($query);
 
 if ($stm->execute());
@@ -30,18 +32,14 @@ if ($stm->execute());
     foreach ($result as $pers)
     {
 
-        echo "Meld hier de leerling beter!: <a href=betermelding.php>$pers->naam </a><br/><br>";
+        echo "Meld hier de leerling ziek!: <a href=ziekmelding.php>$pers->Naam </a><br/><br>";
         echo "Leerlingen: "."<br/>";
         echo "Naam:";
-        echo $pers->naam ."<br/>";
-        echo "Klas: ";
-        echo $pers->klas . "<br/>";
+        echo $pers->Naam ."<br/>";
         echo "Mentor: ";
-        echo $pers->mentor . "<br/>";
-        echo "Datum ziekmelding: ";
-        echo $pers->beter . "<br/>";
-        echo "Dag ziekmelding: ";
-        echo $pers->dag . "<br/>";
+        echo $pers->Mentor . "<br/>";
+        echo "Klas: ";
+        echo $pers->Klas . "<br/>";
         echo "<hr width=\"15%\">";
     }
 }
@@ -53,6 +51,7 @@ if ($stm->execute());
         location.replace("ziekenoverzicht.php")
     }
 </script><br>
+
 <script>
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
