@@ -14,6 +14,7 @@
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="leerlingoverzicht.php">Leerlingoverzicht</a><br>
+    <a href="leerlingtoevoegen.php">leerlingtoevoegen</a><br>
     <a href="ziekenoverzicht.php">Ziekenoverzicht</a><br>
     <a href="ziekmelding.php">Ziekmelden</a><br>
     <a href="betermelding.php">Betermelden</a><br>

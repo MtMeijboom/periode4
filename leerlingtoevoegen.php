@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- hier roep ik mijn stylesheets aan, waaronder een buttonbibliotheek en mijn css bestand-->
-    <title>ziekenoverzicht</title>
+    <title>leerling toevoegen</title>
     <link rel="stylesheet" href="periode1.4.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span><div id="mySidenav" class="sidenav">
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+<div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="leerlingoverzicht.php">Leerlingoverzicht</a><br>
     <a href="leerlingtoevoegen.php">leerlingtoevoegen</a><br>
@@ -18,40 +19,44 @@
     <a href="ziekmelding.php">Ziekmelden</a><br>
     <a href="betermelding.php">Betermelden</a><br>
 </div><br>
+<h1><em>Voeg je hier toe</em></h1>
+<form method="post" name="veranderen">
+    <p><b>Naam:<br/></b><INPUT TYPE="text" name="naam"/></P>
+    <P><b>Klas:<br/></b><INPUT TYPE="text" name="klas"/></P>
+    <p><b>Mentor:<br/></b><INPUT TYPE="text" name="mentor"/></P>
+    <button class="w3-button w3-circle w3-teal" type="submit" name="btnAdd">Voeg je hier toe</button>
+</FORM>
+<!--hier laat ik een butten zien, als er iemand op klikt wordt hij verwezen naar de overzicht pagina-->
+<button onclick="myFunction()">Ga naar de ziekenlijst</button>
 
+<script>
+    function myFunction() {
+        location.replace("ziekenoverzicht.php")
+    }
+</script>
 <!-- Hier maak ik de connectie met mijn database, en wijzig of voeg ik de data in de database als er op een knop is gedrukt-->
 <?php
 include 'config.php';
-$query = "SELECT * FROM leerlingoverzicht";
-$stm = $con->prepare($query);
+if(isset($_POST["btnAdd"])) {
 
-if ($stm->execute());
-{
-    $result = $stm->fetchAll(PDO::FETCH_OBJ);
+    $lijst = array();
 
-    foreach ($result as $pers)
+    $lijst[0] = $_POST["naam"];
+
+    $lijst[1] = $_POST["klas"];
+
+    $lijst[2] =  $_POST["mentor"];
+
+
+    $query = "INSERT INTO leerlingoverzicht VALUES ".
+        "('$lijst[0]','$lijst[1]','$lijst[2]')";
+    $stm = $con->prepare($query);
+    if($stm->execute())
     {
-
-        echo "Meld hier de leerling ziek!: <a href=ziekmelding.php>$pers->Naam </a><br/><br>";
-        echo "Leerlingen: "."<br/>";
-        echo "Naam:";
-        echo $pers->Naam ."<br/>";
-        echo "Mentor: ";
-        echo $pers->Mentor . "<br/>";
-        echo "Klas: ";
-        echo $pers->Klas . "<br/>";
-        echo "<hr width=\"15%\">";
-    }
+        echo "Leerling is toegevoegt!";
+    }else echo "Leerling is niet toegevoegt!";
 }
 ?>
-<button onclick="myFunction1()">Ga naar het ziekenoverzicht</button>
-
-<script>
-    function myFunction1() {
-        location.replace("ziekenoverzicht.php")
-    }
-</script><br>
-
 <script>
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
